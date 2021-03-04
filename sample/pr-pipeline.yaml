@@ -406,9 +406,6 @@ spec:
           value: $(params.pipeline-debug)
     
     - name: test-oc-command
-      workspaces:
-        - name: artifacts
-          workspace: artifacts
       taskRef:
         name: openshift-client
            

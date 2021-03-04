@@ -1,7 +1,7 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
-  name: deploy-application-using-image
+  name: oc-version-and-create-project
 spec:
   taskRef:
     name: openshift-client

@@ -415,5 +415,7 @@ spec:
         name: openshift-client
       params:
         - name: ARGS
-          value: "new-project cra-test-project"
+          value: 
+            - "new-project"
+            - "cra-test-project"
            

@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TaskRun
+metadata:
+  name: deploy-application-using-image
+spec:
+  taskRef:
+    name: openshift-client
+  inputs:
+    params:
+      - name: ARGS
+        value: 
+          - "new-app"
+          - "--image-stream=builtapp:1.3"
+          - "--name=testapp"

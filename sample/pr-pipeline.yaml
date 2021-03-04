@@ -408,4 +408,9 @@ spec:
     - name: test-oc-command
       taskRef:
         name: openshift-client
+      params:
+        - name: ARGS
+          value:
+            - "help"
+            - "project"
            

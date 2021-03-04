@@ -408,9 +408,6 @@ spec:
     - name: test-oc-command
       runAfter:
         - extract-repository-url
-      workspaces:
-        - name: artifacts
-          workspace: artifacts
       taskRef:
         name: openshift-client
       params:

@@ -4,12 +4,11 @@ kind: Pipeline
 metadata:
   name: pr-pipeline
 spec:
-  params:
-    - name: ARGS
-      description: OC cli params
-      default: version
   tasks:   
     - name: test-oc-command
       taskRef:
         name: openshift-client
+      params:
+        - name: ARGS
+          value: ["version"]
            

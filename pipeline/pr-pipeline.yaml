@@ -5,10 +5,7 @@ metadata:
   name: pr-pipeline
 spec:
   tasks:   
-    - name: test-oc-command
+    - name: test-oc-login-command
       taskRef:
         name: openshift-client
-      params:
-        - name: ARGS
-          value: ["help", "project"]
            

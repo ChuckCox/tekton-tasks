@@ -43,4 +43,4 @@ spec:
       command: ["sh"]
       args:
         - "-c"
-        - "oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn --server=https://c114-e.us-south.containers.cloud.ibm.com:32369; oc new-project pipeline-proj"
+        - "oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn --server=https://c114-e.us-south.containers.cloud.ibm.com:32369; oc apply -f https://github.com/maheshwarishikha/tekton-tasks/app-pipeline/deployments/ui.yaml -n example-bank"

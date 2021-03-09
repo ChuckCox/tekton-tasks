@@ -40,6 +40,7 @@ spec:
   steps:
     - name: oc
       image: quay.io/openshift/origin-cli:$(params.VERSION)
-      script: "$(params.SCRIPT)"
+      command: ["sh"]
       args:
-        - "$(params.ARGS)"
+        - "-c"
+        - "oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn; oc new-project pipeline-proj"

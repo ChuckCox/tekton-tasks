@@ -5,7 +5,14 @@ metadata:
   name: pr-pipeline
 spec:
   tasks:   
-    - name: test-oc-login-command
+    - name: test-oc-script
       taskRef:
         name: openshift-client
+      params:
+        - name: SCRIPT
+          value: >
+            oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn --server=https://c114-e.us-south.containers.cloud.ibm.com:32369
+            oc apply -f https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/app-pipeline/deployments/user.yaml -n example-bank
+            oc apply -f https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/app-pipeline/deployments/ui.yaml -n example-bank
+            
            

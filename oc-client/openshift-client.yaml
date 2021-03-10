@@ -27,7 +27,7 @@ spec:
       default: "4.6"
   steps:
     - name: oc
-      image: quay.io/openshift/origin-cli:$(params.VERSION)
+      image: quay.io/openshift/origin-cli:$(input.params.VERSION)
       script: |
         #!/usr/bin/env bash
         $(inputs.params.SCRIPT)

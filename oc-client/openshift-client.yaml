@@ -10,37 +10,24 @@ metadata:
     tekton.dev/tags: cli
     tekton.dev/displayName: "openshift client"
 spec:
-  description: >-
-    This task runs commands against the cluster where the task run is
-    being executed.
-
-    OpenShift is a Kubernetes distribution from Red Hat which provides oc,
-    the OpenShift CLI that complements kubectl for simplifying deployment
-    and configuration applications on OpenShift.
-
-  params:
-  - name: SCRIPT
-    description: The OpenShift CLI arguments to run
-    type: string
-    default: "oc $@"
-  - name: ARGS
-    description: The OpenShift CLI arguments to run
-    type: array
-    default:
-    - "help"
-  - name: VERSION
-    description: The OpenShift Version to use
-    type: string
-    default: "4.6"
-  resources:
-    inputs:
-      - name: source
-        type: git
-        optional: true
+  inputs:
+    params:
+    - name: SCRIPT
+      description: The OpenShift CLI arguments to run
+      type: string
+      default: "oc $@"
+    - name: ARGS
+      description: The OpenShift CLI arguments to run
+      type: array
+      default:
+      - "help"
+    - name: VERSION
+      description: The OpenShift Version to use
+      type: string
+      default: "4.6"
   steps:
     - name: oc
       image: quay.io/openshift/origin-cli:$(params.VERSION)
-      command: ["sh"]
-      args:
-        - "-c"
-        - "oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn --server=https://c114-e.us-south.containers.cloud.ibm.com:32369; oc apply -f https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/app-pipeline/deployments/ui.yaml -n example-bank"
+      script: |
+        #!/usr/bin/env bash
+        $(inputs.params.SCRIPT)

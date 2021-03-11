@@ -15,6 +15,7 @@ spec:
     - name: SCRIPT
       description: The OpenShift CLI arguments to run
       type: string
+      default: "oc $@"
     - name: ARGS
       description: The OpenShift CLI arguments to run
       type: array
@@ -27,6 +28,4 @@ spec:
   steps:
     - name: oc
       image: quay.io/openshift/origin-cli:$(input.params.VERSION)
-      script: |
-        #!/usr/bin/env bash
-        $(inputs.params.SCRIPT)
+      script: $(inputs.params.SCRIPT)

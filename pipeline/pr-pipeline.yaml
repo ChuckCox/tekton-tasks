@@ -4,30 +4,7 @@ kind: Pipeline
 metadata:
   name: pr-pipeline
 spec:
-  resources:
-    - name: bank-git
-      type: git
-    - name: user-image
-      type: image
   tasks:
-    - name: git-clone
-      params:
-        - name: TLSVERIFY
-          value: 'false'
-        - name: MAVEN_ARGS_APPEND
-          value: '-pl :transaction-service -am package'
-        - name: PATH_CONTEXT
-          value: bank-app-backend/
-      resources:
-        inputs:
-          - name: source
-            resource: bank-git
-        outputs:
-          - name: image
-            resource: transaction-image
-      taskRef:
-        kind: Task
-        name: s2i-java-8
     - name: test-oc-script
       taskRef:
         name: openshift-client

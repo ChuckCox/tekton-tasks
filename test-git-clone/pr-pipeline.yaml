@@ -16,3 +16,6 @@ spec:
       params:
         - name: url
           value: $(params.git-url)
+      workspaces:
+        - name: output
+          workspace: artifacts

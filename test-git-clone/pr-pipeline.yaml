@@ -8,7 +8,7 @@ spec:
     - name: git-url
       description: git URL
   workspaces:
-    - name: shared-workspace
+    - name: artifacts
   tasks:
     - name: fetch-code
       taskRef:

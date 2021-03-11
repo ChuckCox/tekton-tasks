@@ -15,7 +15,6 @@ spec:
     - name: SCRIPT
       description: The OpenShift CLI arguments to run
       type: string
-      default: "oc $@"
     - name: ARGS
       description: The OpenShift CLI arguments to run
       type: array

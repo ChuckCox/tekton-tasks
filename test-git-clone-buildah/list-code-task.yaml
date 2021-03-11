@@ -5,6 +5,9 @@ metadata:
 spec:
   description: >-
     ls command output
+  workspaces:
+    - name: response
+      description: to list output
   params:
     - name: directory
       description: git url to clone

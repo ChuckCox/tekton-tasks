@@ -4,13 +4,37 @@ kind: Pipeline
 metadata:
   name: pr-pipeline
 spec:
-  tasks:   
+  resources:
+    - name: bank-git
+      type: git
+    - name: user-image
+      type: image
+  tasks:
+    - name: git-clone
+      params:
+        - name: TLSVERIFY
+          value: 'false'
+        - name: MAVEN_ARGS_APPEND
+          value: '-pl :transaction-service -am package'
+        - name: PATH_CONTEXT
+          value: bank-app-backend/
+      resources:
+        inputs:
+          - name: source
+            resource: bank-git
+        outputs:
+          - name: image
+            resource: transaction-image
+      taskRef:
+        kind: Task
+        name: s2i-java-8
     - name: test-oc-script
       taskRef:
         name: openshift-client
       params:
         - name: SCRIPT
           value: >
+            #!/usr/bin/env bash
             oc login -u apikey -p 8VQCc9qtBOI-tcJrJHqOoBqWoTJnlF7ifEFImzgz91Zn --server=https://c114-e.us-south.containers.cloud.ibm.com:32369
             oc apply -f https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/app-pipeline/deployments/user.yaml -n example-bank
             oc apply -f https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/app-pipeline/deployments/ui.yaml -n example-bank

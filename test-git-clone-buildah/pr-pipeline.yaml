@@ -1,0 +1,52 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pr-pipeline
+spec:
+  params:
+    - name: git-url
+      description: git URL
+    - name: directory
+    - name: DOCKERFILE
+      description: Path to DOCKERFILE
+    - name: IMAGE
+      description: image ocation to be pushed
+  workspaces:
+    - name: artifacts
+  tasks:
+    - name: fetch-code
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-url)
+      workspaces:
+        - name: output
+          workspace: artifacts
+    
+    - name: list-code
+      taskRef:
+        name: list-code
+      runAfter:
+        - fetch-code
+      params:
+        - name: directory
+          value: $(params.directory)
+      workspaces:
+        - name: response
+          workspace: artifacts
+
+    - name: build-and-push-image
+      taskRef:
+        name: buildah
+      runAfter:
+        - fetch-code
+      params:
+        - name: DOCKERFILE
+          value: $(params.DOCKERFILE)
+        - name: IMAGE
+          value: $(params.IMAGE)
+      workspaces:
+        - name: source
+          workspace: artifacts

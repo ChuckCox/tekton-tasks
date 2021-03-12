@@ -21,10 +21,12 @@ spec:
     type: string
   - name: deployment
     type: string
+  workspaces:
+  - name: deploy
   steps:
-    - name: oc
-      image: quay.io/openshift/origin-cli:$(params.VERSION)
-      command: ["sh"]
-      args:
-        - "-c"
-        - "oc login -u apikey -p $(params.apikey) --server=$(params.server-url); oc apply -f $(params.deployment) -n example-bank"
+  - name: oc
+    image: quay.io/openshift/origin-cli:$(params.VERSION)
+    command: ["sh"]
+    args:
+      - "-c"
+      - "oc login -u apikey -p $(params.apikey) --server=$(params.server-url); oc apply -f $(params.deployment) -n example-bank"

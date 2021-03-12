@@ -94,6 +94,6 @@ spec:
           - name: DOCKERFILE
             value: ./Dockerfile
           - name: IMAGE
-            value: us.icr.io/islcodepatterns/test-image-from-pipeline
+            value: maheshwarishikha/sample-image
           - name: directory
             value: /

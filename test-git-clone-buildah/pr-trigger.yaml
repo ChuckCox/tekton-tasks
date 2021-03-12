@@ -96,4 +96,4 @@ spec:
           - name: IMAGE
             value: maheshwarishikha/sample-image
           - name: directory
-            value: /
+            value: /workspace

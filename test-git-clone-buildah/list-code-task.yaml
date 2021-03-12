@@ -19,7 +19,6 @@ spec:
   steps:
     - name: list-src
       image: alpine
-      workingDir: $(workspaces.source.path)
       command:
         - "ls"
       args: 

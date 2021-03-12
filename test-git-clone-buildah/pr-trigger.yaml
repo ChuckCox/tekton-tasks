@@ -94,6 +94,6 @@ spec:
           - name: DOCKERFILE
             value: ./Dockerfile
           - name: IMAGE
-            value: docker.io/maheshwarishikha/sample-image
+            value: maheshwarishikha/sample-image
           - name: directory
             value: /workspace/response

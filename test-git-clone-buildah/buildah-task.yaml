@@ -71,12 +71,9 @@ spec:
   - name: push
     image: $(params.BUILDER_IMAGE)
     workingDir: $(workspaces.source.path)
-    env:
-      - name: REGISTRY_AUTH_FILE
-        value: /home/builder/.docker/config.json
     script: |
       [[ "$(workspaces.sslcertdir.bound)" == "true" ]] && CERT_DIR_FLAG="--cert-dir $(workspaces.sslcertdir.path)"
-      buildah ${CERT_DIR_FLAG} --storage-driver=$(params.STORAGE_DRIVER) push \
+      buildah ${CERT_DIR_FLAG} --storage-driver=$(params.STORAGE_DRIVER) push --creds maheshwarishikha:docker@123\
         $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
         --digestfile $(workspaces.source.path)/image-digest $(params.IMAGE) \
         docker://$(params.IMAGE)

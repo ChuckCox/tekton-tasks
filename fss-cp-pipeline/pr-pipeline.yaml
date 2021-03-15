@@ -6,7 +6,7 @@ metadata:
 spec:
   params:
     - name: repository
-    - name: revision
+    - name: branch
     - name: directory
     - name: DOCKERFILE
       description: Path to CONTEXT

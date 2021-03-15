@@ -89,8 +89,8 @@ spec:
             value: $(params.project-id)
           - name: ibmcloud-api
             value: $(params.ibmcloud-api)
-          - name: CONTEXT
-            value: bank-app-backend/transaction-service/
+          - name: DOCKERFILE
+            value: ./bank-app-backend/transaction-service/Dockerfile
           - name: IMAGE
             value: maheshwarishikha/eb-tr-image
           - name: directory

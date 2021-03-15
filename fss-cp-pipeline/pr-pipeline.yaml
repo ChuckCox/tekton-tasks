@@ -8,7 +8,7 @@ spec:
     - name: repository
     - name: branch
     - name: directory
-    - name: CONTEXT
+    - name: DOCKERFILE
       description: Path to CONTEXT
     - name: IMAGE
       description: image ocation to be pushed
@@ -48,8 +48,8 @@ spec:
       runAfter:
         - fetch-code
       params:
-        - name: CONTEXT
-          value: $(params.CONTEXT)
+        - name: DOCKERFILE
+          value: $(params.DOCKERFILE)
         - name: IMAGE
           value: $(params.IMAGE)
       workspaces:

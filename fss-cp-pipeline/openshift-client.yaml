@@ -1,0 +1,32 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: openshift-client
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: cli
+    tekton.dev/displayName: "openshift client"
+spec:
+  params:
+  - name: VERSION
+    description: The OpenShift Version to use
+    type: string
+    default: "4.6"
+  - name: apikey
+    type: string
+  - name: server-url
+    type: string
+  - name: deployment
+    type: string
+  workspaces:
+  - name: deploy
+  steps:
+  - name: oc
+    image: quay.io/openshift/origin-cli:$(params.VERSION)
+    command: ["sh"]
+    args:
+      - "-c"
+      - "oc login -u apikey -p $(params.apikey) --server=$(params.server-url); oc apply -f $(params.deployment) -n example-bank"

@@ -1,0 +1,73 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pr-pipeline
+spec:
+  params:
+    - name: repository
+    - name: branch
+    - name: directory
+    - name: CONTEXT
+      description: Path to CONTEXT
+    - name: IMAGE
+      description: image ocation to be pushed
+    - name: apikey
+    - name: server-url
+    - name: deployment
+  workspaces:
+    - name: artifacts
+  tasks:
+    - name: fetch-code
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.repository)
+        - name: revision
+          value: $(params.branch)
+      workspaces:
+        - name: output
+          workspace: artifacts
+    
+    - name: list-code
+      taskRef:
+        name: list-code
+      runAfter:
+        - fetch-code
+      params:
+        - name: directory
+          value: $(params.directory)
+      workspaces:
+        - name: response
+          workspace: artifacts
+
+    - name: build-and-push-image
+      taskRef:
+        name: buildah
+      runAfter:
+        - fetch-code
+      params:
+        - name: CONTEXT
+          value: $(params.CONTEXT)
+        - name: IMAGE
+          value: $(params.IMAGE)
+      workspaces:
+        - name: source
+          workspace: artifacts
+
+    - name: deploy-services
+      taskRef:
+        name: openshift-client
+      runAfter:
+        - build-and-push-image
+      params:
+        - name: apikey
+          value: $(params.apikey)
+        - name: server-url
+          value: $(params.server-url)
+        - name: deployment
+          value: $(params.deployment)
+      workspaces:
+        - name: deploy
+          workspace: artifacts

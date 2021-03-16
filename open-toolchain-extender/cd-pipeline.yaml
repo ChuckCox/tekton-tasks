@@ -182,6 +182,6 @@ spec:
           #     "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
         - name: pipeline-debug
           value: $(params.pipeline-debug)
-        workspaces:
-          - name: artifacts
-            workspace: pipeline-ws
+      workspaces:
+        - name: artifacts
+          workspace: pipeline-ws

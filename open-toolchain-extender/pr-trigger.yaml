@@ -84,7 +84,7 @@ spec:
           - name: path-to-dockerfile
             value: bank-app-backend/transaction-service/
           - name: directory
-            value: "."
+            value: "/workspace/response"
             # value: $(params.path-to-dockerfile)
           # - name: target-branch
           #   value: $(params.target-branch)
@@ -106,6 +106,14 @@ spec:
             value: $(params.ibmcloud-api)
           - name: apikey
             value: $(params.apikey)
+          - name: cluster-region
+            value: $(params.dev-region)
+          - name: resource-group
+            value: $(params.dev-resource-group)
+          - name: cluster-name
+            value: $(params.cluster-name)
+          - name: dev-cluster-namespace
+            value: $(params.dev-cluster-namespace)
           # - name: server-url
           #   value: https://c114-e.us-south.containers.cloud.ibm.com:32369
           # - name: deployment

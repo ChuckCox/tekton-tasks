@@ -1,0 +1,116 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: cd-pipeline
+spec:
+  params:
+    - name: repository
+      description: the git repo
+    - name: branch
+      description: the branch for the git repo
+    - name: git-access-token
+      description: illustrate alternate way to provide/get git access token
+      default: ""
+    - name: registry-region
+      description: the container registry region
+    - name: registry-namespace
+      description: the container registry namespace
+    - name: image-name
+      description: the image name
+    - name: path-to-dockerfile
+      default: "."
+    - name: pipeline-debug
+      default: "0"
+  workspaces:
+    - name: pipeline-ws
+  
+  tasks:
+    - name: extract-repository-url
+      taskRef:
+        name: toolchain-extract-value
+      params:
+        - name: expression
+          # if a params.repository is given, it takes precedence
+          value: '. as $toolchain | ["$(params.repository)"] | if .[0]=="" then $toolchain | .services[] | select(.toolchain_binding.name=="repo") | .dashboard_url else .[0] end'
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
+    
+    - name: git-clone-task
+      taskRef:
+        name: git-clone-repo
+      workspaces:
+        - name: output
+          workspace: pipeline-ws
+      params:
+        - name: repository
+          value: $(params.repository)
+        - name: branch
+          value: $(params.branch)
+        - name: git-access-token
+          value: $(params.git-access-token)
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
+
+    - name: containerize-task
+      runAfter: git-clone-task
+      taskRef:
+        name: icr-containerize
+      params:
+        - name: continuous-delivery-context-secret
+          value: "secure-properties"
+        - name: container-registry-apikey-secret-key
+          value: "apikey"
+        - name: registry-region
+          value: $(params.registry-region)
+        - name: registry-namespace
+          value: $(params.registry-namespace)
+        - name: image-name
+          value: $(params.image-name)
+        - name: path-to-context
+          value: $(params.path-to-dockerfile)
+        - name: path-to-dockerfile
+          value: $(params.path-to-dockerfile)
+        - name: additional-tags
+          value: latest,1.0.0-$(tasks.pipeline-1-clone-task.results.git-branch)-$(tasks.pipeline-1-clone-task.results.git-commit)
+        - name: additional-tags-script
+          value: |
+            # The script is providing tag(s) as output
+            # But logs can be written as error stderr
+            echo "Providing an image tag with build number" >&2
+            # Add a specific tag with cd build number
+            echo "1.0.0-${BUILD_NUMBER}"
+        - name: properties-file
+          value: ""
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
+      workspaces:
+        - name: source
+          workspace: pipeline-ws
+    
+    - name: run-va-task
+      runAfter: containerize-task
+      taskRef:
+        name: icr-check-va-scan
+      params:
+        - name: scan-report-file
+          value: "app-image-va-report.json"
+        # - name: max-iteration
+        #   value: '5'
+        # - name: sleep-time
+        #   value: '3'
+        # - name: fail-on-scanned-issues
+        #   value: 'false'
+        - name: continuous-delivery-context-secret
+          value: "secure-properties"
+        - name: container-registry-apikey-secret-key
+          value: "apikey"
+        - name: image-url
+          value: $(tasks.containerize-task.results.image-repository)
+        - name: image-digest
+          value: $(tasks.containerize-task.results.image-digest)
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
+      workspaces:
+        - name: artifacts
+          workspace: pipeline-ws

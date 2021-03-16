@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: transaction-service
-        image: maheshwarishikha/eb-tr-image:latest
+        image: us.icr.io/islcodepatterns/cp-transactio-service:latest
         imagePullPolicy: Always
         ports:
         - name: http-server

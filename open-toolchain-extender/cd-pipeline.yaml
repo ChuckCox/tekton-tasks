@@ -29,6 +29,9 @@ spec:
     - name: resource-group
     - name: cluster-name
     - name: dev-cluster-namespace
+    - name: deployment-file
+      description: file containing the kubernetes deployment definition
+      default: deployment.yml
   workspaces:
     - name: pipeline-ws
   

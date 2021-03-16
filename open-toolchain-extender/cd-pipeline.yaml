@@ -143,9 +143,9 @@ spec:
         - name: shuttle-properties-file
           value: build.properties
         - name: cluster-region
-          value: $(params.dev-region)
+          value: $(params.cluster-region)
         - name: resource-group
-          value: $(params.dev-resource-group)
+          value: $(params.resource-group)
         - name: cluster-name
           value: $(params.cluster-name)
         - name: setup-script

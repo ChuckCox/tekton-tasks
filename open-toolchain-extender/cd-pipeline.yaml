@@ -135,25 +135,25 @@ spec:
           workspace: pipeline-ws
 
     - name: deploy-to-openshift
-        taskRef:
-          name: iks-deploy-to-kubernetes
-        runAfter:
-          - vulnerability-advisor
-        params:
-          - name: shuttle-properties-file
-            value: build.properties
-          - name: cluster-region
-            value: $(params.dev-region)
-          - name: resource-group
-            value: $(params.dev-resource-group)
-          - name: cluster-name
-            value: $(params.cluster-name)
-          - name: setup-script
-            value: |
-              export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
-          - name: script
-            value: >
-              source <(curl -sSL "https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml")
+      taskRef:
+        name: iks-deploy-to-kubernetes
+      runAfter:
+        - vulnerability-advisor
+      params:
+        - name: shuttle-properties-file
+          value: build.properties
+        - name: cluster-region
+          value: $(params.dev-region)
+        - name: resource-group
+          value: $(params.dev-resource-group)
+        - name: cluster-name
+          value: $(params.cluster-name)
+        - name: setup-script
+          value: |
+            export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
+        - name: script
+          value: >
+            source <(curl -sSL "https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml")
           # - name: script
           #   value: >
           #     # uncomment to debug the script
@@ -180,8 +180,8 @@ spec:
 
           #     source <(curl -sSL
           #     "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
-          - name: pipeline-debug
-            value: $(params.pipeline-debug)
+        - name: pipeline-debug
+          value: $(params.pipeline-debug)
         workspaces:
           - name: artifacts
             workspace: pipeline-ws

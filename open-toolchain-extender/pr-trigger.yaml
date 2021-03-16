@@ -40,6 +40,14 @@ spec:
       default: "."
     - name: pipeline-debug
       default: "0"
+    - name: cluster-region
+      description: $(params.dev-region)
+    - name: resource-group
+      description: $(params.dev-resource-group)
+    - name: cluster-name
+      description: $(params.cluster-name)
+    - name: dev-cluster-namespace
+      description: $(params.dev-cluster-namespace)
   resourcetemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim

@@ -153,7 +153,8 @@ spec:
             export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
         - name: script
           value: >
-            source <(curl -sSL "https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml")
+            source <(curl -sSL 
+            "https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml")
           # - name: script
           #   value: >
           #     # uncomment to debug the script

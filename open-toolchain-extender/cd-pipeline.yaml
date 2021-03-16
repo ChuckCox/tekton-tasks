@@ -22,6 +22,8 @@ spec:
       default: "."
     - name: pipeline-debug
       default: "0"
+    - name: directory
+      default: "."
   workspaces:
     - name: pipeline-ws
   

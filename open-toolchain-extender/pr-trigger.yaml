@@ -82,7 +82,7 @@ spec:
           - name: image-name
             value: $(params.image-name)
           - name: path-to-dockerfile
-            value: ./bank-app-backend/transaction-service/
+            value: bank-app-backend/transaction-service/
             # value: $(params.path-to-dockerfile)
           # - name: target-branch
           #   value: $(params.target-branch)

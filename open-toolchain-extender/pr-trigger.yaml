@@ -74,7 +74,7 @@ spec:
           - name: repository
             value: $(params.repository)
           - name: branch
-            value: $(params.branch)
+            value: main
           - name: registry-region
             value: $(params.registry-region)
           - name: registry-namespace

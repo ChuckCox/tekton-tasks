@@ -52,8 +52,20 @@ spec:
         - name: pipeline-debug
           value: $(params.pipeline-debug)
 
+    - name: list-code
+      taskRef:
+        name: list-code
+      runAfter:
+        - git-clone-task
+      params:
+        - name: directory
+          value: $(params.directory)
+      workspaces:
+        - name: response
+          workspace: pipeline-ws
+
     - name: containerize-task
-      runAfter: git-clone-task
+      runAfter: list-code
       taskRef:
         name: icr-containerize
       params:

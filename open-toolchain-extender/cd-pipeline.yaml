@@ -151,36 +151,20 @@ spec:
         - name: setup-script
           value: |
             export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
+            export DEPLOYMENT_FILE="$(params.deployment-file)"
+            # pipeline build number is the doi build record id (if any)
+            export SOURCE_BUILD_NUMBER=$BUILD_NUMBER
+            echo "SOURCE_BUILD_NUMBER=$BUILD_NUMBER" >> build.properties
+            # For doi plugin invocation if needed
+            export TOOLCHAIN_ID=$PIPELINE_TOOLCHAIN_ID
+            # Single tag for the image built
+            export IMAGE_TAG=$IMAGE_TAGS
+            # Keep it in build.properties shuttle file
+            echo "IMAGE_TAG=$IMAGE_TAGS" >> build.properties
         - name: script
           value: >
-            source <(curl -sSL 
-            "https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml")
-          # - name: script
-          #   value: >
-          #     # uncomment to debug the script
-
-          #     # set -x
-
-          #     # copy the script below into your app code repo (e.g.
-          #     ./scripts/check_health.sh) and 'source' it from your pipeline job
-
-          #     #    source ./scripts/check_health.sh
-
-          #     # alternatively, you can source it from online script:
-
-          #     #    source <(curl -sSL
-          #     "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
-
-          #     # ------------------
-
-          #     # source:
-          #     https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh
-
-          #     # Check liveness and readiness probes to confirm application is
-          #     healthy
-
-          #     source <(curl -sSL
-          #     "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_health.sh")
+            source <(curl -sSL
+            "https://raw.githubusercontent.com/open-toolchain/commons/master/scripts/check_and_deploy_kubectl.sh")
         - name: pipeline-debug
           value: $(params.pipeline-debug)
       workspaces:

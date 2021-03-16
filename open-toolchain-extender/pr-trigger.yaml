@@ -48,6 +48,9 @@ spec:
       description: $(params.cluster-name)
     - name: dev-cluster-namespace
       description: $(params.dev-cluster-namespace)
+    - name: deployment-file
+      description: file containing the kubernetes deployment definition
+      default: deployment.yml
   resourcetemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -122,6 +125,8 @@ spec:
             value: $(params.cluster-name)
           - name: dev-cluster-namespace
             value: $(params.dev-cluster-namespace)
+          - name: deployment-file
+            value: services-deployment.yaml
           # - name: server-url
           #   value: https://c114-e.us-south.containers.cloud.ibm.com:32369
           # - name: deployment

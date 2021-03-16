@@ -40,9 +40,9 @@ spec:
       default: "."
     - name: pipeline-debug
       default: "0"
-    - name: cluster-region
+    - name: dev-region
       description: $(params.dev-region)
-    - name: resource-group
+    - name: dev-resource-group
       description: $(params.dev-resource-group)
     - name: cluster-name
       description: $(params.cluster-name)

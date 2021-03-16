@@ -103,7 +103,7 @@ spec:
             # Add a specific tag with cd build number
             echo "1.0.0-${BUILD_NUMBER}"
         - name: properties-file
-          value: ""
+          value: "build.properties"
         - name: pipeline-debug
           value: $(params.pipeline-debug)
       workspaces:

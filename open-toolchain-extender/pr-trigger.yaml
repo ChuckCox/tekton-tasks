@@ -34,9 +34,17 @@ spec:
       description: the container registry region
     - name: registry-namespace
       description: the container registry namespace
-    - name: image-name
+    - name: transaction-service-image-name
       description: the image name
-    - name: path-to-dockerfile
+    - name: user-service-image-name
+      description: the image name
+    - name: simulator-service-image-name
+      description: the image name
+    - name: path-to-transaction-service-dockerfile
+      default: "."
+    - name: path-to-user-service-dockerfile
+      default: "."
+    - name: path-to-simulator-service-dockerfile
       default: "."
     - name: pipeline-debug
       default: "0"
@@ -90,10 +98,20 @@ spec:
             value: $(params.registry-region)
           - name: registry-namespace
             value: $(params.registry-namespace)
-          - name: image-name
-            value: $(params.image-name)
-          - name: path-to-dockerfile
+          - name: transaction-service-image-name
+            value: $(params.transaction-service-image-name)
+          - name: user-service-image-name
+            value: $(params.user-service-image-name)
+          - name: simulator-service-image-name
+            value: $(params.simulator-service-image-name)
+          # - name: path-to-dockerfile
+          #   value: bank-app-backend/transaction-service/
+          - name: path-to-transaction-service-dockerfile
             value: bank-app-backend/transaction-service/
+          - name: path-to-user-service-dockerfile
+            value: bank-app-backend/user-service/
+          - name: path-to-simulator-service-dockerfile
+            value: "."
           - name: directory
             value: "/workspace/response"
             # value: $(params.path-to-dockerfile)
@@ -127,7 +145,3 @@ spec:
             value: $(params.dev-cluster-namespace)
           - name: deployment-file
             value: services-deployment.yaml
-          # - name: server-url
-          #   value: https://c114-e.us-south.containers.cloud.ibm.com:32369
-          # - name: deployment
-          #   value: https://raw.githubusercontent.com/maheshwarishikha/tekton-tasks/main/services-deployment.yaml

@@ -93,17 +93,45 @@ spec:
           value: $(params.path-to-dockerfile)
         - name: path-to-dockerfile
           value: $(params.path-to-dockerfile)
-        - name: additional-tags
-          value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
-        - name: additional-tags-script
-          value: |
-            # The script is providing tag(s) as output
-            # But logs can be written as error stderr
-            echo "Providing an image tag with build number" >&2
-            # Add a specific tag with cd build number
-            echo "1.0.0-${BUILD_NUMBER}"
-        - name: properties-file
-          value: "build.properties"
+        # - name: additional-tags
+        #   value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
+        # - name: additional-tags-script
+        #   value: >
+        #       # Minting image tag using format:
+        #       BUILD_NUMBER-BRANCH-COMMIT_ID-TIMESTAMP
+
+        #       # e.g. 3-master-50da6912-20181123114435
+
+        #       # (use build number as first segment to allow image tag as a patch
+        #       release name according to semantic versioning)
+
+        #       GIT_BRANCH="$(tasks.git-clone-task.results.git-branch)"
+
+        #       GIT_COMMIT="$(tasks.git-clone-task.results.git-commit)"
+
+        #       TIMESTAMP=$( date -u "+%Y%m%d%H%M%S")
+
+        #       IMAGE_TAG=${TIMESTAMP}
+
+        #       if [ ! -z "${GIT_COMMIT}" ]; then
+        #         GIT_COMMIT_SHORT=$( echo ${GIT_COMMIT} | head -c 8 )
+        #         IMAGE_TAG=${GIT_COMMIT_SHORT}-${IMAGE_TAG}
+        #       fi
+
+        #       if [ ! -z "${GIT_BRANCH}" ]; then
+        #       IMAGE_TAG=${GIT_BRANCH}-${IMAGE_TAG} ; fi
+
+        #       IMAGE_TAG=${BUILD_NUMBER}-${IMAGE_TAG}
+
+        #       echo "$IMAGE_TAG"
+          # value: |
+          #   # The script is providing tag(s) as output
+          #   # But logs can be written as error stderr
+          #   echo "Providing an image tag with build number" >&2
+          #   # Add a specific tag with cd build number
+          #   echo "1.0.0-${BUILD_NUMBER}"
+        # - name: properties-file
+        #   value: ""
         - name: pipeline-debug
           value: $(params.pipeline-debug)
       workspaces:

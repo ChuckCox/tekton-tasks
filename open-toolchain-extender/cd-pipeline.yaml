@@ -16,8 +16,8 @@ spec:
       description: the container registry region
     - name: registry-namespace
       description: the container registry namespace
-    - name: image-name
-      description: the image name
+    # - name: image-name
+    #   description: the image name
     - name: path-to-dockerfile
       default: "."
     - name: pipeline-debug

@@ -143,5 +143,5 @@ spec:
             value: $(params.cluster-name)
           - name: dev-cluster-namespace
             value: $(params.dev-cluster-namespace)
-          # - name: deployment-file
-          #   value: services-deployment.yaml
+          - name: deployment-file
+            value: deployment.yaml

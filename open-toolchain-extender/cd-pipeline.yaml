@@ -37,6 +37,8 @@ spec:
     - name: simulator-service-image-name
     - name: path-to-transaction-svc-deployment
     - name: path-to-user-svc-deployment
+    - name: path-to-transaction-service-dockerfile
+    - name: path-to-user-service-dockerfile
   workspaces:
     - name: pipeline-ws
   
@@ -98,7 +100,7 @@ spec:
         - name: path-to-context
           value: $(params.path-to-dockerfile)
         - name: path-to-dockerfile
-          value: $(params.path-to-dockerfile)
+          value: $(params.path-to-transaction-service-dockerfile)
         # - name: additional-tags
         #   value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
         - name: additional-tags-script
@@ -231,7 +233,7 @@ spec:
         - name: path-to-context
           value: $(params.path-to-dockerfile)
         - name: path-to-dockerfile
-          value: $(params.path-to-dockerfile)
+          value: $(params.path-to-user-service-dockerfile)
         # - name: additional-tags
         #   value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
         - name: additional-tags-script

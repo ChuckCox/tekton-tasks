@@ -146,6 +146,6 @@ spec:
           - name: deployment-file
             value: deployment.yaml
           - name: path-to-transaction-svc-deployment
-            value: bank-app-backend/transaction-service/
+            value: bank-app-backend/transaction-service
           - name: path-to-user-svc-deployment
-            value: bank-app-backend/user-service/
+            value: bank-app-backend/user-service

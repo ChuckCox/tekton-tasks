@@ -212,7 +212,7 @@ spec:
     
     - name: containerize-user-service
       runAfter: 
-        - transaction-service-deploy
+        - list-code
       taskRef:
         name: icr-containerize
       params:
@@ -343,7 +343,7 @@ spec:
 
     - name: containerize-simulator-service
       runAfter: 
-        - user-service-deploy
+        - list-code
       taskRef:
         name: icr-containerize
       params:

@@ -144,33 +144,33 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: va-scan-transaction-service
-      runAfter: 
-        - containerize-transaction-service
-      taskRef:
-        name: icr-check-va-scan
-      params:
-        - name: scan-report-file
-          value: "transaction-service-image-va-report.json"
-        # - name: max-iteration
-        #   value: '5'
-        # - name: sleep-time
-        #   value: '3'
-        - name: fail-on-scanned-issues
-          value: 'false'
-        - name: continuous-delivery-context-secret
-          value: "secure-properties"
-        - name: container-registry-apikey-secret-key
-          value: "apikey"
-        - name: image-url
-          value: $(tasks.containerize-transaction-service.results.image-repository)
-        - name: image-digest
-          value: $(tasks.containerize-transaction-service.results.image-digest)
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
-      workspaces:
-        - name: artifacts
-          workspace: pipeline-ws
+    # - name: va-scan-transaction-service
+    #   runAfter: 
+    #     - containerize-transaction-service
+    #   taskRef:
+    #     name: icr-check-va-scan
+    #   params:
+    #     - name: scan-report-file
+    #       value: "transaction-service-image-va-report.json"
+    #     # - name: max-iteration
+    #     #   value: '5'
+    #     # - name: sleep-time
+    #     #   value: '3'
+    #     - name: fail-on-scanned-issues
+    #       value: 'false'
+    #     - name: continuous-delivery-context-secret
+    #       value: "secure-properties"
+    #     - name: container-registry-apikey-secret-key
+    #       value: "apikey"
+    #     - name: image-url
+    #       value: $(tasks.containerize-transaction-service.results.image-repository)
+    #     - name: image-digest
+    #       value: $(tasks.containerize-transaction-service.results.image-digest)
+    #     - name: pipeline-debug
+    #       value: $(params.pipeline-debug)
+    #   workspaces:
+    #     - name: artifacts
+    #       workspace: pipeline-ws
 
     - name: transaction-service-deploy
       taskRef:
@@ -214,7 +214,7 @@ spec:
     
     - name: containerize-user-service
       runAfter: 
-        - list-code
+        - transaction-service-deploy
       taskRef:
         name: icr-containerize
       params:
@@ -277,33 +277,33 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: va-scan-user-service
-      runAfter: 
-        - containerize-user-service
-      taskRef:
-        name: icr-check-va-scan
-      params:
-        - name: scan-report-file
-          value: "user-service-image-va-report.json"
-        # - name: max-iteration
-        #   value: '5'
-        # - name: sleep-time
-        #   value: '3'
-        - name: fail-on-scanned-issues
-          value: 'false'
-        - name: continuous-delivery-context-secret
-          value: "secure-properties"
-        - name: container-registry-apikey-secret-key
-          value: "apikey"
-        - name: image-url
-          value: $(tasks.containerize-user-service.results.image-repository)
-        - name: image-digest
-          value: $(tasks.containerize-user-service.results.image-digest)
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
-      workspaces:
-        - name: artifacts
-          workspace: pipeline-ws
+    # - name: va-scan-user-service
+    #   runAfter: 
+    #     - containerize-user-service
+    #   taskRef:
+    #     name: icr-check-va-scan
+    #   params:
+    #     - name: scan-report-file
+    #       value: "user-service-image-va-report.json"
+    #     # - name: max-iteration
+    #     #   value: '5'
+    #     # - name: sleep-time
+    #     #   value: '3'
+    #     - name: fail-on-scanned-issues
+    #       value: 'false'
+    #     - name: continuous-delivery-context-secret
+    #       value: "secure-properties"
+    #     - name: container-registry-apikey-secret-key
+    #       value: "apikey"
+    #     - name: image-url
+    #       value: $(tasks.containerize-user-service.results.image-repository)
+    #     - name: image-digest
+    #       value: $(tasks.containerize-user-service.results.image-digest)
+    #     - name: pipeline-debug
+    #       value: $(params.pipeline-debug)
+    #   workspaces:
+    #     - name: artifacts
+    #       workspace: pipeline-ws
 
     - name: user-service-deploy
       taskRef:
@@ -347,7 +347,7 @@ spec:
 
     - name: containerize-simulator-service
       runAfter: 
-        - list-code
+        - user-service-deploy
       taskRef:
         name: icr-containerize
       params:
@@ -410,33 +410,33 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: va-scan-simulator-service
-      runAfter: 
-        - containerize-simulator-service
-      taskRef:
-        name: icr-check-va-scan
-      params:
-        - name: scan-report-file
-          value: "simulator-service-image-va-report.json"
-        # - name: max-iteration
-        #   value: '5'
-        # - name: sleep-time
-        #   value: '3'
-        - name: fail-on-scanned-issues
-          value: 'false'
-        - name: continuous-delivery-context-secret
-          value: "secure-properties"
-        - name: container-registry-apikey-secret-key
-          value: "apikey"
-        - name: image-url
-          value: $(tasks.containerize-simulator-service.results.image-repository)
-        - name: image-digest
-          value: $(tasks.containerize-simulator-service.results.image-digest)
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
-      workspaces:
-        - name: artifacts
-          workspace: pipeline-ws
+    # - name: va-scan-simulator-service
+    #   runAfter: 
+    #     - containerize-simulator-service
+    #   taskRef:
+    #     name: icr-check-va-scan
+    #   params:
+    #     - name: scan-report-file
+    #       value: "simulator-service-image-va-report.json"
+    #     # - name: max-iteration
+    #     #   value: '5'
+    #     # - name: sleep-time
+    #     #   value: '3'
+    #     - name: fail-on-scanned-issues
+    #       value: 'false'
+    #     - name: continuous-delivery-context-secret
+    #       value: "secure-properties"
+    #     - name: container-registry-apikey-secret-key
+    #       value: "apikey"
+    #     - name: image-url
+    #       value: $(tasks.containerize-simulator-service.results.image-repository)
+    #     - name: image-digest
+    #       value: $(tasks.containerize-simulator-service.results.image-digest)
+    #     - name: pipeline-debug
+    #       value: $(params.pipeline-debug)
+    #   workspaces:
+    #     - name: artifacts
+    #       workspace: pipeline-ws
 
     - name: simulator-service-deploy
       taskRef:

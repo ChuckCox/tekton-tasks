@@ -191,7 +191,7 @@ spec:
             export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
             export PATH_TO_DEPLOYMENT="$(params.path-to-transaction-svc-deployment)"
             export DEPLOYMENT_FILE="$PATH_TO_DEPLOYMENT/$(params.deployment-file)"
-            export IMAGE_NAME=$(tasks.containerize-transaction-service.results.image-repository)
+            export IMAGE_NAME=`echo $(tasks.containerize-transaction-service.results.image-repository)| awk -F'/' '{print $3}'`
             # pipeline build number is the doi build record id (if any)
             export SOURCE_BUILD_NUMBER=$BUILD_NUMBER
             echo "SOURCE_BUILD_NUMBER=$BUILD_NUMBER" >> build.properties
@@ -323,7 +323,7 @@ spec:
             export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
             export PATH_TO_DEPLOYMENT="$(params.path-to-user-svc-deployment)"
             export DEPLOYMENT_FILE="$PATH_TO_DEPLOYMENT/$(params.deployment-file)"
-            export IMAGE_NAME=$(tasks.containerize-user-service.results.image-repository)
+            export IMAGE_NAME=`echo $(tasks.containerize-user-service.results.image-repository)| awk -F'/' '{print $3}'`
             # pipeline build number is the doi build record id (if any)
             export SOURCE_BUILD_NUMBER=$BUILD_NUMBER
             echo "SOURCE_BUILD_NUMBER=$BUILD_NUMBER" >> build.properties
@@ -453,7 +453,7 @@ spec:
           value: |
             export CLUSTER_NAMESPACE="$(params.dev-cluster-namespace)"
             export DEPLOYMENT_FILE="$(params.deployment-file)"
-            export IMAGE_NAME=$(tasks.containerize-simulator-service.results.image-repository)
+            export IMAGE_NAME=`echo $(tasks.containerize-simulator-service.results.image-repository)| awk -F'/' '{print $3}'`
             # pipeline build number is the doi build record id (if any)
             export SOURCE_BUILD_NUMBER=$BUILD_NUMBER
             echo "SOURCE_BUILD_NUMBER=$BUILD_NUMBER" >> build.properties

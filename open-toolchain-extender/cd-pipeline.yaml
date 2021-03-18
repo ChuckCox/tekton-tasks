@@ -156,8 +156,8 @@ spec:
         #   value: '5'
         # - name: sleep-time
         #   value: '3'
-        # - name: fail-on-scanned-issues
-        #   value: 'false'
+        - name: fail-on-scanned-issues
+          value: 'false'
         - name: continuous-delivery-context-secret
           value: "secure-properties"
         - name: container-registry-apikey-secret-key
@@ -176,7 +176,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - va-scan-transaction-service
+        - containerize-transaction-service
       params:
         - name: shuttle-properties-file
           value: build.properties
@@ -289,8 +289,8 @@ spec:
         #   value: '5'
         # - name: sleep-time
         #   value: '3'
-        # - name: fail-on-scanned-issues
-        #   value: 'false'
+        - name: fail-on-scanned-issues
+          value: 'false'
         - name: continuous-delivery-context-secret
           value: "secure-properties"
         - name: container-registry-apikey-secret-key
@@ -309,7 +309,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - va-scan-user-service
+        - containerize-user-service
       params:
         - name: shuttle-properties-file
           value: build.properties
@@ -422,8 +422,8 @@ spec:
         #   value: '5'
         # - name: sleep-time
         #   value: '3'
-        # - name: fail-on-scanned-issues
-        #   value: 'false'
+        - name: fail-on-scanned-issues
+          value: 'false'
         - name: continuous-delivery-context-secret
           value: "secure-properties"
         - name: container-registry-apikey-secret-key
@@ -442,7 +442,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - va-scan-simulator-service
+        - containerize-simulator-service
       params:
         - name: shuttle-properties-file
           value: build.properties

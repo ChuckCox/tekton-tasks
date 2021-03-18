@@ -169,7 +169,7 @@ spec:
           workspace: pipeline-ws
 
     - name: containerize-user-service
-      runAfter: containerize-transaction-service
+      runAfter: vulnerability-advisor-transaction-service
       taskRef:
         name: icr-containerize
       params:
@@ -260,7 +260,7 @@ spec:
           workspace: pipeline-ws
 
     - name: containerize-simulator-service
-      runAfter: containerize-user-service
+      runAfter: vulnerability-advisor-user-service
       taskRef:
         name: icr-containerize
       params:

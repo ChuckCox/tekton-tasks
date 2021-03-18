@@ -144,7 +144,7 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: vulnerability-advisor-transaction-service
+    - name: va-scan-transaction-service
       runAfter: 
         - containerize-transaction-service
       taskRef:
@@ -176,7 +176,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - containerize-transaction-service
+        - va-scan-transaction-service
       params:
         - name: shuttle-properties-file
           value: build.properties
@@ -277,7 +277,7 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: vulnerability-advisor-user-service
+    - name: va-scan-user-service
       runAfter: 
         - containerize-user-service
       taskRef:
@@ -309,7 +309,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - containerize-user-service
+        - va-scan-user-service
       params:
         - name: shuttle-properties-file
           value: build.properties
@@ -410,7 +410,7 @@ spec:
         - name: source
           workspace: pipeline-ws
     
-    - name: vulnerability-advisor-simulator-service
+    - name: va-scan-simulator-service
       runAfter: 
         - containerize-simulator-service
       taskRef:
@@ -442,7 +442,7 @@ spec:
       taskRef:
         name: iks-deploy-to-kubernetes
       runAfter:
-        - containerize-simulator-service
+        - va-scan-simulator-service
       params:
         - name: shuttle-properties-file
           value: build.properties

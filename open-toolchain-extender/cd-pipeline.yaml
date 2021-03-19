@@ -39,6 +39,8 @@ spec:
     - name: path-to-user-svc-deployment
     - name: path-to-transaction-service-dockerfile
     - name: path-to-user-service-dockerfile
+    - name: tx-dockerfile
+    - name: user-dockerfile
   workspaces:
     - name: pipeline-ws
   
@@ -101,6 +103,8 @@ spec:
           value: $(params.path-to-transaction-service-dockerfile)
         - name: path-to-dockerfile
           value: $(params.path-to-transaction-service-dockerfile)
+        - name: dockerfile
+          value: $(params.tx-dockerfile)
         # - name: additional-tags
         #   value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
         - name: additional-tags-script
@@ -234,6 +238,8 @@ spec:
           value: $(params.path-to-user-service-dockerfile)
         - name: path-to-dockerfile
           value: $(params.path-to-user-service-dockerfile)
+        - name: dockerfile
+          value: $(params.user-dockerfile)
         # - name: additional-tags
         #   value: latest,1.0.0-$(tasks.git-clone-task.results.git-branch)-$(tasks.git-clone-task.results.git-commit)
         - name: additional-tags-script
